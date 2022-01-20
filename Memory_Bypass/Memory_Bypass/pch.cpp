@@ -71,10 +71,6 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const char* modName)
             } while (Module32Next(hSnap, &modEntry));
         }
     }
-    else
-    {
-        std::cout << "INVALID_HANDLE_VALUE returned" << std::endl;
-    }
     CloseHandle(hSnap);
     return modBaseAddr;
 }

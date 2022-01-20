@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Minecraft_Memory_Bypass
 {
@@ -29,7 +20,7 @@ namespace Minecraft_Memory_Bypass
         /// 通过进程名称得到进程ID
         /// </summary>
         /// <param name="Name">进程名称</param>
-        /// <returns>进程PID</returns>
+        /// <returns>返回进程PID</returns>
         [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static int GetProcId(string Name);
         /// <summary>
@@ -37,14 +28,14 @@ namespace Minecraft_Memory_Bypass
         /// </summary>
         /// <param name="nID">进程PID</param>
         /// <param name="Name">进程名称</param>
-        /// <returns></returns>
+        /// <returns>返回基地址(十进制)</returns>
         [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static long GetModuleBaseAddress(long nID, string Name);
         /// <summary>
         /// 通过进程ID得到窗口句柄
         /// </summary>
         /// <param name="nID">进程PID</param>
-        /// <returns></returns>
+        /// <returns>返回句柄(十进制)</returns>
         [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static long GetProcessHandle(int nID);
         /// <summary>
@@ -135,28 +126,50 @@ namespace Minecraft_Memory_Bypass
 
         void Start_in_the_background(object sender, DoWorkEventArgs e)
         {
-            Update_Data();
-            Assignment("启动Minecraft");
-            Process.Start("minecraft:");
-            int PID = GetProcId(Program_Name);
-            Assignment("进程PID ：" + PID);
-            long Address = GetModuleBaseAddress(PID, Program_Name);
-            Assignment("进程基址：0x" + Address.ToString("X16"));
-            long Handle = GetProcessHandle(PID);
-            Assignment("窗口句柄：0x" + Handle.ToString("X16"));
-            byte[] Buffer = new byte[] { (byte)Write_Content };
-            Assignment("偏移地址：0x" + Offset_Address.ToString("X16"));
-            Assignment("写入内存：0x" + Write_Content.ToString("X16"));
-            bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer);
-            Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
+            try
+            {
+                Update_Data();
+                Assignment("启动进程：MinecraftUWP");
+                Process.Start("minecraft:");
+                int PID = GetProcId(Program_Name);
+                Assignment("进程PID ：" + PID);
+                long Address = GetModuleBaseAddress(PID, Program_Name);
+                Assignment("进程基址：0x" + Address.ToString("X"));
+                long Handle = GetProcessHandle(PID);
+                Assignment("窗口句柄：0x" + Handle.ToString("X"));
+                byte[] Buffer = new byte[] { (byte)Write_Content };
+                Assignment("偏移地址：0x" + Offset_Address.ToString("X"));
+                Assignment("写入内存：0x" + Write_Content.ToString("X"));
+                bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer);
+                Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
+            }
+            catch (Exception ex)
+            {
+                new Thread(() =>
+                {
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                        new Action(() =>
+                        {
+                            Assignment("发生错误：未知错误");
+                            MessageBox.Show(ex.ToString(), "错误！");
+                        }));
+                }).Start();
+            }
         }
 
         private void 启动_Click(object sender, RoutedEventArgs e)
         {
-            using (BackgroundWorker bw = new BackgroundWorker())
+            if(File.Exists("Memory_Bypass.dll"))
             {
-                bw.DoWork += new DoWorkEventHandler(Start_in_the_background);
-                bw.RunWorkerAsync();
+                using (BackgroundWorker bw = new BackgroundWorker())
+                {
+                    bw.DoWork += new DoWorkEventHandler(Start_in_the_background);
+                    bw.RunWorkerAsync();
+                }
+            }
+            else
+            {
+                Assignment("发生错误：Memory_Bypass 丢失");
             }
         }
 
@@ -174,7 +187,6 @@ namespace Minecraft_Memory_Bypass
                 Properties.Settings.Default.Write_Content = 内容.Text;
                 Properties.Settings.Default.Save();
             }
-
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
