@@ -147,18 +147,17 @@ namespace Minecraft_Memory_Bypass
                 //刷新用户输入数据
                 Update_Data();
                 Assignment("启动进程：MinecraftUWP");
-                Process.Start("minecraft:");                                //启动MinecraftUWP
-                int PID = GetProcId(Program_Name);                          //得到进程PID
+                Process.Start("minecraft:");                                            //启动MinecraftUWP
+                int PID = GetProcId(Program_Name);                                      //得到进程PID
                 Assignment("进程PID ：" + PID);
-                long Address = GetModuleBaseAddress(PID, Program_Name);     //得到进程基地址(十进制)
+                long Address = GetModuleBaseAddress(PID, Program_Name);                 //得到进程基地址(十进制)
                 Assignment("进程基址：0x" + Address.ToString("X"));
-                long Handle = GetProcessHandle(PID);                        //得到窗口句柄
+                long Handle = GetProcessHandle(PID);                                    //得到窗口句柄
                 Assignment("窗口句柄：0x" + Handle.ToString("X"));
-                byte[] Buffer = new byte[] { (byte)Write_Content };         //设置缓冲区
+                byte[] Buffer = new byte[] { (byte)Write_Content };                     //设置缓冲区
                 Assignment("偏移地址：0x" + Offset_Address.ToString("X"));
                 Assignment("写入内存：0x" + Write_Content.ToString("X"));
-                //将数据写入内存
-                bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer,1);
+                bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer,1);  //将数据写入内存
                 Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
             }
             catch (Exception ex)
@@ -177,8 +176,10 @@ namespace Minecraft_Memory_Bypass
 
         private void 启动_Click(object sender, RoutedEventArgs e)
         {
+            //监测库文件是否存在
             if(File.Exists("Memory_Bypass.dll"))
             {
+                //后台执行
                 using (BackgroundWorker bw = new BackgroundWorker())
                 {
                     bw.DoWork += new DoWorkEventHandler(Start_in_the_background);
@@ -193,6 +194,7 @@ namespace Minecraft_Memory_Bypass
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            //判断输入是否为空
             if(名称.Text == "" || 地址.Text == "" || 内容.Text == "")
             {
                提示.Visibility = Visibility.Visible;
