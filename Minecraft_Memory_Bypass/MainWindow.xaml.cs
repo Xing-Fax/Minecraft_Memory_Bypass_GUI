@@ -66,15 +66,6 @@ namespace Minecraft_Memory_Bypass
             if (e.LeftButton == MouseButtonState.Pressed) { DragMove(); }
         }
 
-        private void 关闭_Click(object sender, RoutedEventArgs e)
-        {
-            名称.Text = Properties.Settings.Default.Program_Name;
-            地址.Text = Properties.Settings.Default.Offset_Address;
-            内容.Text = Properties.Settings.Default.Write_Content;
-            提示.Visibility = Visibility.Collapsed;
-            BeginStoryboard((Storyboard)FindResource("设置开启"));
-        }
-
         private void Label_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Process.Start("https://github.com/xingchuanzhen/Minecraft_Bypass_the_program");
@@ -85,6 +76,11 @@ namespace Minecraft_Memory_Bypass
             Environment.Exit(0);
         }
 
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            BeginStoryboard((Storyboard)FindResource("设置关闭"));
+        }
+
         private void Assignment(string str)
         {
             Dispatcher.Invoke(new Action(delegate
@@ -92,6 +88,15 @@ namespace Minecraft_Memory_Bypass
                 日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + str;
                 框.ScrollToVerticalOffset(框.ExtentHeight);
             }));
+        }
+
+        private void 关闭_Click(object sender, RoutedEventArgs e)
+        {
+            名称.Text = Properties.Settings.Default.Program_Name;
+            地址.Text = Properties.Settings.Default.Offset_Address;
+            内容.Text = Properties.Settings.Default.Write_Content;
+            提示.Visibility = Visibility.Collapsed;
+            BeginStoryboard((Storyboard)FindResource("设置开启"));
         }
 
         private void Update_Data()
@@ -187,11 +192,6 @@ namespace Minecraft_Memory_Bypass
                 Properties.Settings.Default.Write_Content = 内容.Text;
                 Properties.Settings.Default.Save();
             }
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            BeginStoryboard((Storyboard)FindResource("设置关闭"));
         }
     }
 }
