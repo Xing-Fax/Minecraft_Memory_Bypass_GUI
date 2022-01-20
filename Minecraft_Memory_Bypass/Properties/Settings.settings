@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Minecraft_Memory_Bypass.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Program_Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Minecraft.Windows.exe</Value>
+    </Setting>
+    <Setting Name="Offset_Address" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x115CDD6</Value>
+    </Setting>
+    <Setting Name="Write_Content" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0xEB</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
