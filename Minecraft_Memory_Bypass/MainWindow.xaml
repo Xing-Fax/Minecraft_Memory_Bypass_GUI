@@ -165,7 +165,7 @@
             <Label Content="运行日志：" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="80" FontFamily="Microsoft YaHei UI"/>
             <Label Content="Copyright © xcz  2021" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="140" FontFamily="Microsoft YaHei UI" MouseUp="Label_MouseUp" Canvas.Left="135"/>
         </Canvas>
-        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" Background="White" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" Background="White" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

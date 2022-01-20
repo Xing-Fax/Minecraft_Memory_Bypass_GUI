@@ -12,5 +12,5 @@
 extern "C" _declspec(dllexport) HANDLE GetProcessHandle(int nID);
 extern "C" _declspec(dllexport) DWORD GetProcId(const char* procName);
 extern "C" _declspec(dllexport) uintptr_t GetModuleBaseAddress(DWORD procId, const char* modName);
-extern "C" _declspec(dllexport) bool WriteMemory(HANDLE Handle, long long Address, char Buffer[1]);
+extern "C" _declspec(dllexport) bool WriteMemory(HANDLE Handle, long long Address, char Buffer[1],int nSize);
 #endif //PCH_H
