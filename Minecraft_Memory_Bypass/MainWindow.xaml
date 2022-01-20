@@ -185,7 +185,7 @@
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="关于：" VerticalAlignment="Top" Margin="7.083,24.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="设置：" VerticalAlignment="Top" Margin="7.083,109.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
             <Button x:Name="Cancel" Content="取消" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="210,260.76,0,0" FontFamily="Microsoft YaHei UI" Click="Cancel_Click"/>
-            <Label x:Name="提示" Content="输入不能为空！" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,208.694,0,0" Width="115" HorizontalContentAlignment="Right" FontFamily="Microsoft YaHei UI" Background="{x:Null}" Foreground="Red"/>
+            <Label x:Name="提示" Content="输入不能为空！" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,213.694,0,0" Width="115" HorizontalContentAlignment="Right" FontFamily="Microsoft YaHei UI" Background="{x:Null}" Foreground="Red" Height="25.76"/>
         </Grid>
         <Grid Margin="0,0,0,265" MouseMove="Grid_MouseMove">
             <Grid.Background>

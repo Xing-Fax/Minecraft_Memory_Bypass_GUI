@@ -81,9 +81,10 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const char* modName)
 /// <param name="Handle">句柄</param>
 /// <param name="Address">内存地址</param>
 /// <param name="Buffer">内容</param>
+/// <param name="nSize">写入缓冲区大小</param>
 /// <returns>是否写入成功</returns>
-bool WriteMemory(HANDLE Handle, long long Address, char Buffer[1])
+bool WriteMemory(HANDLE Handle, long long Address, char Buffer[1],int nSize)
 {
-    return WriteProcessMemory(Handle, LPVOID(Address), Buffer, 1, 0);
+    return WriteProcessMemory(Handle, LPVOID(Address), Buffer, nSize, 0);
 }
 
