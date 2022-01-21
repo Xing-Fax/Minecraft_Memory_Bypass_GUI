@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minecraft_Memory_Bypass"
         mc:Ignorable="d"
-        Title="Minecraft Memory Bypass" Height="290" Width="295" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" Icon="256x256.ico" SnapsToDevicePixels="True" Topmost="True" ResizeMode="NoResize" KeyDown="Window_KeyDown">
+        Title="Minecraft Memory Bypass" Height="290" Width="295" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" Icon="256x256.ico" SnapsToDevicePixels="True" Topmost="True" ResizeMode="NoResize">
     <Window.Resources>
         <Storyboard x:Key="设置开启">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="设置">

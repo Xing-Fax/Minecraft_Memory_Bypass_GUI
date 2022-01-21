@@ -179,13 +179,14 @@ namespace Minecraft_Memory_Bypass
                 bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer, 1);  //将数据写入内存
                 Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
                 Thread.Sleep(1000);
+                //判断是否执行成功，成功后自动关闭程序(提前用户设置后)
                 if (Result && Properties.Settings.Default.Quit)
                     Dispatcher.Invoke(new Action(delegate { 最小化_Click(null, null); })) ;
             }
             catch (Exception ex)
             {
                 new Thread(() =>
-                {
+                {   //打印异常错误
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                         new Action(() =>
                         {
@@ -229,14 +230,6 @@ namespace Minecraft_Memory_Bypass
                 Properties.Settings.Default.Write_Content = 内容.Text;
                 Properties.Settings.Default.Quit = (bool)退出.IsChecked;
                 Properties.Settings.Default.Save();
-            }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.LeftShift)
-            {
-                MessageBox.Show("");
             }
         }
     }
