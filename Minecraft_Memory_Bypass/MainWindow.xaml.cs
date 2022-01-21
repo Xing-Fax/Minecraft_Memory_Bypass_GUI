@@ -48,7 +48,6 @@ namespace Minecraft_Memory_Bypass
         /// <returns>是否写入成功</returns>
         [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static bool WriteMemory(long Handle, long Address, byte[] Buffer,int nSize);
-
         /// <summary>
         /// 进程名称
         /// </summary>
@@ -69,12 +68,7 @@ namespace Minecraft_Memory_Bypass
 
         private void Label_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://github.com/xingchuanzhen/Minecraft_Bypass_the_program");
-        }
-
-        private void 最小化_Click(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
+            Process.Start("https://github.com/xingchuanzhen/Minecraft_Memory_Bypass_GUI");
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -82,6 +76,31 @@ namespace Minecraft_Memory_Bypass
             BeginStoryboard((Storyboard)FindResource("设置关闭"));
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            最小化_Click(null, null);
+        }
+
+        void Exit(object sender, DoWorkEventArgs e)
+        {
+            Thread.Sleep(400);
+            Environment.Exit(0);
+        }
+
+        private void 最小化_Click(object sender, RoutedEventArgs e)
+        {
+            BeginStoryboard((Storyboard)FindResource("程序关闭"));
+            using (BackgroundWorker bw = new BackgroundWorker())
+            {
+                bw.DoWork += new DoWorkEventHandler(Exit);
+                bw.RunWorkerAsync();
+            }
+        }
+
+        /// <summary>
+        /// 打印日志
+        /// </summary>
+        /// <param name="str">输出内容</param>
         private void Assignment(string str)
         {
             Dispatcher.Invoke(new Action(delegate//同步线程
@@ -96,6 +115,7 @@ namespace Minecraft_Memory_Bypass
             名称.Text = Properties.Settings.Default.Program_Name;
             地址.Text = Properties.Settings.Default.Offset_Address;
             内容.Text = Properties.Settings.Default.Write_Content;
+            退出.IsChecked = Properties.Settings.Default.Quit;
             提示.Visibility = Visibility.Collapsed;
             BeginStoryboard((Storyboard)FindResource("设置开启"));
         }
@@ -123,7 +143,7 @@ namespace Minecraft_Memory_Bypass
             //隐藏设置界面
             设置.Visibility = Visibility.Collapsed;
             //打印日志
-            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序启动";
+            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.0.0.0";
             //获取计算机UWP程序安装列表
             string Inf = Operate.RunCmd(@"CD C:\Program Files\WindowsApps & C: & DIR");
             //判断是否安装了MinecraftUWP
@@ -144,12 +164,11 @@ namespace Minecraft_Memory_Bypass
         {
             try
             {
-                //刷新用户输入数据
-                Update_Data();
+                Update_Data();                                                          //刷新用户输入数据
                 Assignment("启动进程：MinecraftUWP");
                 Process.Start("minecraft:");                                            //启动MinecraftUWP
                 int PID = GetProcId(Program_Name);                                      //得到进程PID
-                Assignment("进程PID ：" + PID);
+                Assignment("进程标识：" + PID);
                 long Address = GetModuleBaseAddress(PID, Program_Name);                 //得到进程基地址(十进制)
                 Assignment("进程基址：0x" + Address.ToString("X"));
                 long Handle = GetProcessHandle(PID);                                    //得到窗口句柄
@@ -157,8 +176,11 @@ namespace Minecraft_Memory_Bypass
                 byte[] Buffer = new byte[] { (byte)Write_Content };                     //设置缓冲区
                 Assignment("偏移地址：0x" + Offset_Address.ToString("X"));
                 Assignment("写入内存：0x" + Write_Content.ToString("X"));
-                bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer,1);  //将数据写入内存
+                bool Result = WriteMemory(Handle, Address + Offset_Address, Buffer, 1);  //将数据写入内存
                 Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
+                Thread.Sleep(1000);
+                if (Result && Properties.Settings.Default.Quit)
+                    Dispatcher.Invoke(new Action(delegate { 最小化_Click(null, null); })) ;
             }
             catch (Exception ex)
             {
@@ -205,7 +227,16 @@ namespace Minecraft_Memory_Bypass
                 Properties.Settings.Default.Program_Name = 名称.Text;
                 Properties.Settings.Default.Offset_Address = 地址.Text;
                 Properties.Settings.Default.Write_Content = 内容.Text;
+                Properties.Settings.Default.Quit = (bool)退出.IsChecked;
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftShift)
+            {
+                MessageBox.Show("");
             }
         }
     }

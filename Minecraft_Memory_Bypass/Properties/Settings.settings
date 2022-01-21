@@ -11,5 +11,8 @@
     <Setting Name="Write_Content" Type="System.String" Scope="User">
       <Value Profile="(Default)">0xEB</Value>
     </Setting>
+    <Setting Name="Quit" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

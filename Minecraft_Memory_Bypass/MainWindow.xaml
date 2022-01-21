@@ -5,41 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minecraft_Memory_Bypass"
         mc:Ignorable="d"
-        Title="Minecraft Memory Bypass" Height="290" Width="295" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" Icon="256x256.ico" SnapsToDevicePixels="True" Topmost="True">
+        Title="Minecraft Memory Bypass" Height="290" Width="295" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" Icon="256x256.ico" SnapsToDevicePixels="True" Topmost="True" ResizeMode="NoResize" KeyDown="Window_KeyDown">
     <Window.Resources>
-        <Storyboard x:Key="窗体关闭">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="主窗体">
-                <EasingDoubleKeyFrame KeyTime="0" Value="290"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="主窗体">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="主窗体">
-                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="窗体打开">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="主窗体">
-                <SplineDoubleKeyFrame KeyTime="0" Value="25"/>
-                <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="290"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="主窗体">
-                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
-                <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="主窗体">
-                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="关闭程序">
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="主窗体">
-                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
         <Storyboard x:Key="设置开启">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="设置">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.458">
@@ -97,6 +64,10 @@
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
             </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="rectangle">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="设置关闭">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="设置">
@@ -143,29 +114,123 @@
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="rectangle">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="程序启动">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.034">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="程序关闭">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.034">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <Grid Background="White" Clip="M0.5,5.5 C0.5,2.7385763 2.7385763,0.5 5.5,0.5 L289.5,0.5 C292.26142,0.5 294.5,2.7385763 294.5,5.5 L294.5,284.5 C294.5,287.26142 292.26142,289.5 289.5,289.5 L5.5,289.5 C2.7385763,289.5 0.5,287.26142 0.5,284.5 z">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource 程序启动}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="grid" Background="White" Clip="M0.5,5.5 C0.5,2.7385763 2.7385763,0.5 5.5,0.5 L289.5,0.5 C292.26142,0.5 294.5,2.7385763 294.5,5.5 L294.5,284.5 C294.5,287.26142 292.26142,289.5 289.5,289.5 L5.5,289.5 C2.7385763,289.5 0.5,287.26142 0.5,284.5 z" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
         <Grid.RowDefinitions>
             <RowDefinition Height="290"/>
         </Grid.RowDefinitions>
         <Rectangle HorizontalAlignment="Left" Height="290" Stroke="Black" VerticalAlignment="Top" Width="295" RadiusX="5" RadiusY="5"/>
         <Grid Margin="10,25,10,230">
-            <Button x:Name="启动" Content="执行命令" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="85" FontFamily="Microsoft YaHei UI" FontSize="14" Click="启动_Click"/>
-            <Button x:Name="关闭" Content="程序设置" HorizontalAlignment="Left" Height="35" Margin="95,0,0,0" VerticalAlignment="Top" Width="85" FontFamily="Microsoft YaHei UI" FontSize="14" Click="关闭_Click"/>
-            <Button x:Name="最小化" Content="关闭程序" HorizontalAlignment="Left" Height="35" Margin="190,0,0,0" VerticalAlignment="Top" Width="85" FontFamily="Microsoft YaHei UI" FontSize="14" Click="最小化_Click"/>
+            <Button x:Name="启动" Content="执行命令" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="132.5" FontFamily="Microsoft YaHei UI" FontSize="14" Click="启动_Click"/>
+            <Button x:Name="关闭" Content="程序设置" HorizontalAlignment="Left" Height="35" Margin="142.5,0,0,0" VerticalAlignment="Top" Width="132.5" FontFamily="Microsoft YaHei UI" FontSize="14" Click="关闭_Click"/>
+            <Button x:Name="最小化" Content="关闭程序" HorizontalAlignment="Left" Height="35" Margin="275,0,0,0" VerticalAlignment="Top" Width="0" FontFamily="Microsoft YaHei UI" FontSize="14" Click="最小化_Click"/>
         </Grid>
         <Canvas Margin="10,85,10,10">
             <ScrollViewer x:Name="框" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="275" HorizontalScrollBarVisibility="Auto" Padding="0">
-                <TextBox x:Name="日志" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" MinWidth="258" MinHeight="195" BorderBrush="{x:Null}"/>
+                <TextBox x:Name="日志" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" MinWidth="258" MinHeight="195" BorderBrush="{x:Null}" IsReadOnly="True"/>
             </ScrollViewer>
             <Rectangle HorizontalAlignment="Left" Height="195" Stroke="#FF8F8F8F" VerticalAlignment="Top" Width="275"/>
         </Canvas>
         <Canvas Margin="10,60,10,205">
             <Label Content="运行日志：" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="80" FontFamily="Microsoft YaHei UI"/>
-            <Label Content="Copyright © xcz  2021" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="140" FontFamily="Microsoft YaHei UI" MouseUp="Label_MouseUp" Canvas.Left="135"/>
+            <Label Content="Copyright © xcz  2022" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="140" FontFamily="Microsoft YaHei UI" MouseUp="Label_MouseUp" Canvas.Left="135"/>
         </Canvas>
-        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" Background="White" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" RenderTransformOrigin="0.5,0.5" Background="White">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -174,8 +239,8 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
-            <Rectangle HorizontalAlignment="Left" Height="290" Stroke="Black" VerticalAlignment="Top" Width="295" RadiusX="5" RadiusY="5"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" Height="78.694" Width="60" Margin="10,130,0,0"><Run Text="程序名称："/><LineBreak/><Run/><LineBreak/><Run Text="偏移地址："/><LineBreak/><Run/><LineBreak/><Run Text="写入内容："/></TextBlock>
+            <Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="290" Stroke="Black" VerticalAlignment="Top" Width="295" RadiusX="5" RadiusY="5"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" Height="78.694" Width="60" Margin="10,130,0,0"><Run Text="进程"/><Run Text="名称："/><LineBreak/><Run/><LineBreak/><Run Text="偏移地址："/><LineBreak/><Run/><LineBreak/><Run Text="写入内容："/></TextBlock>
             <TextBox x:Name="名称" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="Minecraft.Windows.exe" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,129,0,0" UndoLimit="92" MaxLength="50" MaxLines="1"/>
             <TextBox x:Name="地址" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="0x115CDD6" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,160,0,0" MaxLength="50" MaxLines="1"/>
             <TextBox x:Name="内容" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="0xEB" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,190,0,0" MaxLength="50" MaxLines="1"/>
@@ -186,12 +251,14 @@
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="设置：" VerticalAlignment="Top" Margin="7.083,109.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
             <Button x:Name="Cancel" Content="取消" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="210,260.76,0,0" FontFamily="Microsoft YaHei UI" Click="Cancel_Click"/>
             <Label x:Name="提示" Content="输入不能为空！" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,213.694,0,0" Width="115" HorizontalContentAlignment="Right" FontFamily="Microsoft YaHei UI" Background="{x:Null}" Foreground="Red" Height="25.76"/>
+            <CheckBox x:Name="退出" Content="自动退出" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,264.901,0,0" FontFamily="Microsoft YaHei UI"/>
         </Grid>
         <Grid Margin="0,0,0,265" MouseMove="Grid_MouseMove">
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Grid.Background>
-            <Label x:Name="标题" Content="Minecraft" HorizontalAlignment="Left" Height="22.75" Margin="5,0,0,0" VerticalAlignment="Top" Width="65" FontFamily="Microsoft YaHei UI"/>
+            <Label x:Name="标题" Content="Minecraft" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="70" FontFamily="Microsoft YaHei UI"/>
+            <Button Content="×" HorizontalAlignment="Left" VerticalAlignment="Top" Width="25" Margin="270,-3.5,0,0" Height="28.5" FontFamily="Microsoft YaHei UI" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Clip="M1.5,15.936 C1.5,9.8608678 6.4248678,4.936 12.5,4.936 C18.575132,4.936 23.5,9.8608678 23.5,15.936 C23.5,22.011132 18.575132,26.936 12.5,26.936 C6.4248678,26.936 1.5,22.011132 1.5,15.936 z" BorderBrush="{x:Null}" Background="{x:Null}" Click="Button_Click"/>
         </Grid>
     </Grid>
 </Window>

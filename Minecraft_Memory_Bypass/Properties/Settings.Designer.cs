@@ -58,5 +58,17 @@ namespace Minecraft_Memory_Bypass.Properties {
                 this["Write_Content"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Quit {
+            get {
+                return ((bool)(this["Quit"]));
+            }
+            set {
+                this["Quit"] = value;
+            }
+        }
     }
 }
