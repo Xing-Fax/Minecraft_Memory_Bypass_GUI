@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -48,6 +47,7 @@ namespace Minecraft_Memory_Bypass
         /// <returns>是否写入成功</returns>
         [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static bool WriteMemory(long Handle, long Address, byte[] Buffer,int nSize);
+
         /// <summary>
         /// 进程名称
         /// </summary>
@@ -104,6 +104,16 @@ namespace Minecraft_Memory_Bypass
             }
         }
 
+        private void 关闭_Click(object sender, RoutedEventArgs e)
+        {
+            名称.Text = Properties.Settings.Default.Program_Name;
+            地址.Text = Properties.Settings.Default.Offset_Address;
+            内容.Text = Properties.Settings.Default.Write_Content;
+            退出.IsChecked = Properties.Settings.Default.Quit;
+            提示.Visibility = Visibility.Collapsed;
+            BeginStoryboard((Storyboard)FindResource("设置开启"));
+        }
+
         /// <summary>
         /// 打印日志
         /// </summary>
@@ -117,18 +127,8 @@ namespace Minecraft_Memory_Bypass
             }));
         }
 
-        private void 关闭_Click(object sender, RoutedEventArgs e)
-        {
-            名称.Text = Properties.Settings.Default.Program_Name;
-            地址.Text = Properties.Settings.Default.Offset_Address;
-            内容.Text = Properties.Settings.Default.Write_Content;
-            退出.IsChecked = Properties.Settings.Default.Quit;
-            提示.Visibility = Visibility.Collapsed;
-            BeginStoryboard((Storyboard)FindResource("设置开启"));
-        }
-
         /// <summary>
-        /// 刷新数据
+        /// 刷新设置数据
         /// </summary>
         private void Update_Data()
         {
@@ -167,14 +167,14 @@ namespace Minecraft_Memory_Bypass
 
                 if (Args[i] == "Implement_YES")
                     Implement_YES = true;
-                
             }
+
+            //不显示窗体(Interface_NO)不能单独使用
             if (Interface_NO && !Implement_YES)
             {
                 MessageBox.Show("Interface_NO 参数不能单独使用！");
                 Environment.Exit(0);
             }
-
         }
 
         public MainWindow()
@@ -206,7 +206,8 @@ namespace Minecraft_Memory_Bypass
                 //输出错误信息
                 Assignment("请先安装 MinecraftUWP!");
                 启动.IsEnabled = false;
-
+                if (Interface_NO)
+                    MessageBox.Show("请先安装 MinecraftUWP!");
             }
         }
 
@@ -230,8 +231,11 @@ namespace Minecraft_Memory_Bypass
                 Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
                 Thread.Sleep(1000);
                 //判断是否执行成功，成功后自动关闭程序(提前用户设置后)
-                if (Result && (Properties.Settings.Default.Quit || Implement_YES))
-                    Dispatcher.Invoke(new Action(delegate { 最小化_Click(null, null); })) ;
+                if(Result && (Properties.Settings.Default.Quit || Implement_YES))
+                    Dispatcher.Invoke(new Action(delegate { 最小化_Click(null, null); }));
+                //在最小化时绕过启动失败，自动显示主窗体
+                if(!Result && 主窗体.Visibility == Visibility.Collapsed)
+                    BeginStoryboard((Storyboard)FindResource("程序启动"));
             }
             catch (Exception ex)
             {
@@ -240,6 +244,8 @@ namespace Minecraft_Memory_Bypass
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                         new Action(() =>
                         {
+                            if (主窗体.Visibility == Visibility.Collapsed)
+                                BeginStoryboard((Storyboard)FindResource("程序启动"));
                             Assignment("发生错误：未知错误");
                             MessageBox.Show(ex.ToString(), "错误！");
                         }));
@@ -266,6 +272,7 @@ namespace Minecraft_Memory_Bypass
             }
             else
             {
+                //写入设置
                 BeginStoryboard((Storyboard)FindResource("设置关闭"));
                 Properties.Settings.Default.Program_Name = 名称.Text;
                 Properties.Settings.Default.Offset_Address = 地址.Text;
