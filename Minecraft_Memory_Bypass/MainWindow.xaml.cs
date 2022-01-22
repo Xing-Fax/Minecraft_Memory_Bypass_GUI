@@ -87,9 +87,16 @@ namespace Minecraft_Memory_Bypass
             Environment.Exit(0);
         }
 
+        private void 主窗体_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!Interface_NO)
+                BeginStoryboard((Storyboard)FindResource("程序启动"));
+        }
+
         private void 最小化_Click(object sender, RoutedEventArgs e)
         {
-            BeginStoryboard((Storyboard)FindResource("程序关闭"));
+            if(!(主窗体.Visibility == Visibility.Collapsed))
+                BeginStoryboard((Storyboard)FindResource("程序关闭"));
             using (BackgroundWorker bw = new BackgroundWorker())
             {
                 bw.DoWork += new DoWorkEventHandler(Exit);
@@ -137,9 +144,49 @@ namespace Minecraft_Memory_Bypass
             Write_Content = int.Parse(hexString, System.Globalization.NumberStyles.HexNumber);
         }
 
+        /// <summary>
+        /// 不显示图形化界面
+        /// </summary>
+        private static bool Interface_NO = false;
+
+        /// <summary>
+        /// 立即执行,执行成功后自动退出
+        /// </summary>
+        private static bool Implement_YES = false;
+
+        /// <summary>
+        /// 初始化命令行参数
+        /// </summary>
+        /// <param name="Args">参数内容</param>
+        private void Initialization(string[] Args)
+        {
+            for (int i = 0; i < Args.Length; i++)
+            {
+                if (Args[i] == "Interface_NO")
+                    Interface_NO = true;
+
+                if (Args[i] == "Implement_YES")
+                    Implement_YES = true;
+                
+            }
+            if (Interface_NO && !Implement_YES)
+            {
+                MessageBox.Show("Interface_NO 参数不能单独使用！");
+                Environment.Exit(0);
+            }
+
+        }
+
         public MainWindow()
         {
+            //初始化命令行参数
+            Initialization(App.Com_Line_Args);
+
             InitializeComponent();
+
+            if (Interface_NO)
+                BeginStoryboard((Storyboard)FindResource("隐藏显示"));
+
             //隐藏设置界面
             设置.Visibility = Visibility.Collapsed;
             //打印日志
@@ -151,12 +198,15 @@ namespace Minecraft_Memory_Bypass
             {
                 //得到游戏版本
                 Assignment("游戏版本：" + Operate.Substring(Inf, "Microsoft.MinecraftUWP_", "_"));
+                if (Implement_YES)
+                    启动_Click(null,null);
             }
             else
             {
                 //输出错误信息
                 Assignment("请先安装 MinecraftUWP!");
                 启动.IsEnabled = false;
+
             }
         }
 
@@ -180,7 +230,7 @@ namespace Minecraft_Memory_Bypass
                 Assignment("执行结果：" + Result.ToString().Replace("True", "写入成功!").Replace("False", "写入失败!"));
                 Thread.Sleep(1000);
                 //判断是否执行成功，成功后自动关闭程序(提前用户设置后)
-                if (Result && Properties.Settings.Default.Quit)
+                if (Result && (Properties.Settings.Default.Quit || Implement_YES))
                     Dispatcher.Invoke(new Action(delegate { 最小化_Click(null, null); })) ;
             }
             catch (Exception ex)
@@ -199,19 +249,11 @@ namespace Minecraft_Memory_Bypass
 
         private void 启动_Click(object sender, RoutedEventArgs e)
         {
-            //监测库文件是否存在
-            if(File.Exists("Memory_Bypass.dll"))
+            //后台执行
+            using (BackgroundWorker bw = new BackgroundWorker())
             {
-                //后台执行
-                using (BackgroundWorker bw = new BackgroundWorker())
-                {
-                    bw.DoWork += new DoWorkEventHandler(Start_in_the_background);
-                    bw.RunWorkerAsync();
-                }
-            }
-            else
-            {
-                Assignment("发生错误：Memory_Bypass 丢失");
+                bw.DoWork += new DoWorkEventHandler(Start_in_the_background);
+                bw.RunWorkerAsync();
             }
         }
 
