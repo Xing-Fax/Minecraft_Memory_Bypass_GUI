@@ -87,12 +87,6 @@ namespace Minecraft_Memory_Bypass
             Environment.Exit(0);
         }
 
-        private void 主窗体_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!Interface_NO)
-                BeginStoryboard((Storyboard)FindResource("程序启动"));
-        }
-
         private void 最小化_Click(object sender, RoutedEventArgs e)
         {
             if(!(主窗体.Visibility == Visibility.Collapsed))
@@ -184,6 +178,7 @@ namespace Minecraft_Memory_Bypass
 
             InitializeComponent();
 
+            //隐藏显示界面
             if (Interface_NO)
                 BeginStoryboard((Storyboard)FindResource("隐藏显示"));
 
@@ -233,9 +228,6 @@ namespace Minecraft_Memory_Bypass
                 //判断是否执行成功，成功后自动关闭程序(提前用户设置后)
                 if(Result && (Properties.Settings.Default.Quit || Implement_YES))
                     Dispatcher.Invoke(new Action(delegate { 最小化_Click(null, null); }));
-                //在最小化时绕过启动失败，自动显示主窗体
-                if(!Result && 主窗体.Visibility == Visibility.Collapsed)
-                    BeginStoryboard((Storyboard)FindResource("程序启动"));
             }
             catch (Exception ex)
             {
@@ -244,10 +236,8 @@ namespace Minecraft_Memory_Bypass
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                         new Action(() =>
                         {
-                            if (主窗体.Visibility == Visibility.Collapsed)
-                                BeginStoryboard((Storyboard)FindResource("程序启动"));
                             Assignment("发生错误：未知错误");
-                            MessageBox.Show(ex.ToString(), "错误！");
+                            MessageBox.Show(ex.ToString(), "错误!");
                         }));
                 }).Start();
             }
