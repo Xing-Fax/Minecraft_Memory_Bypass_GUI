@@ -33,7 +33,7 @@ www.Minecraft.net
          命令解释：
 
          [必须]
-         Implement_YES		启动并执行程序
+         Implement_YES   启动并执行程序
 
          <可选>
          Interface_NO   不显示图形化界面
