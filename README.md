@@ -36,7 +36,7 @@ www.Minecraft.net
          Implement_YES   启动并执行程序
 
          <可选>
-         Interface_NO   不显示图形化界面
+         Interface_NO    不显示图形化界面
          
 ### 写到最后：
 
