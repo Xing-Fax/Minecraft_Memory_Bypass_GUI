@@ -2,7 +2,6 @@
 
 绕过Minecraft for Windows 10我的世界UWP验证系统
 
-
 ### 请支持正版！
 
 www.Minecraft.net
@@ -19,7 +18,7 @@ www.Minecraft.net
 
 通过修改指定内存的方式绕过试玩验证，相比其他两种方法更加简便
 
-不用修改系统设置，程序也不需要申请管理员权限，启动速度快
+不用修改系统设置，程序也不需要申请管理员权限，启动速度快，不会导致系统出现问题
 
 ### 使用方法
 
@@ -27,7 +26,24 @@ www.Minecraft.net
 
 ![Snipaste_2021-07-03_13-07-08](Snipaste_2022-01-23_14-06-39.png)
 
-### 注意
+### 命令行调用
 
-此方法不适用于所有的版本，其他版本可能需要修改偏移量来实现绕过
+         [Implement_YES]  <Interface_NO>
+
+         命令解释：
+
+         [必须]
+         Implement_YES		启动并执行程序
+
+         <可选>
+         Interface_NO   不显示图形化界面
+         
+### 写到最后：
+
+ 编译后的程序链接：
+
+ 蓝奏云：https://wwe.lanzouy.com/b01p1esmh 密码:6tz3
+
+ 本程序遵循GPL ( GNU General Public License )开源许可协议，程序仅供学习交流，严禁商用或其他非法用途！
+
 
