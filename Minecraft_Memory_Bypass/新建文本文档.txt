@@ -1,0 +1,86 @@
+0 -->    UNKNOWN  
+1 -->    MENU  
+2 -->    SOFT  RIGHT  
+3 -->    HOME  
+4 -->    BACK  
+5 -->    CALL  
+6 -->    ENDCALL  
+7 -->    0  
+8 -->    1  
+9 -->    2  
+10 -->    3  
+11 -->    4  
+12 -->    5  
+13 -->    6  
+14 -->    7  
+15 -->    8  
+16 -->    9  
+17 -->    STAR  
+18 -->    POUND  
+19 -->    DPAD  UP  
+20 -->    DPAD  DOWN  
+21 -->    DPAD  LEFT  
+22 -->    DPAD  RIGHT  
+23 -->    DPAD  CENTER  
+24 -->    VOLUME  UP  
+25 -->    VOLUME  DOWN  
+26 -->    POWER  
+27 -->    CAMERA  
+28 -->    CLEAR  
+29 -->    A  
+30 -->    B  
+31 -->    C  
+32 -->    D  
+33 -->    E  
+34 -->    F  
+35 -->    G  
+36 -->    H  
+37 -->    I  
+38 -->    J  
+39 -->    K  
+40 -->    L  
+41 -->    M  
+42 -->    N  
+43 -->    O  
+44 -->    P  
+45 -->    Q  
+46 -->    R  
+47 -->    S  
+48 -->    T  
+49 -->    U  
+50 -->    V  
+51 -->    W  
+52 -->    X  
+53 -->    Y  
+54 -->    Z  
+55 -->    COMMA  
+56 -->    PERIOD  
+57 -->    ALT  LEFT  
+58 -->    ALT  RIGHT  
+59 -->    SHIFT  LEFT  
+60 -->    SHIFT  RIGHT  
+61 -->    TAB  
+62 -->    SPACE  
+63 -->    SYM  
+64 -->    EXPLORER  
+65 -->    ENVELOPE  
+66 -->    ENTER  
+67 -->    DEL  
+68 -->    GRAVE  
+69 -->    MINUS  
+70 -->    EQUALS  
+71 -->    LEFT  BRACKET  
+72 -->    RIGHT  BRACKET  
+73 -->    BACKSLASH  
+74 -->    SEMICOLON  
+75 -->    APOSTROPHE  
+76 -->    SLASH  
+77 -->    AT  
+78 -->    NUM  
+79 -->    HEADSETHOOK  
+80 -->    FOCUS  
+81 -->    PLUS  
+82 -->    MENU  
+83 -->    NOTIFICATION  
+84 -->    SEARCH  
+85 -->    TAG  LAST  KEYCODE  

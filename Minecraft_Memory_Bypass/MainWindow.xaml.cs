@@ -187,7 +187,12 @@ namespace Minecraft_Memory_Bypass
             //打印日志
             日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.0.0.0";
             //获取计算机UWP程序安装列表
-            string Inf = Operate.RunCmd(@"CD C:\Program Files\WindowsApps & C: & DIR");
+            LoopUtil loopUtil = new LoopUtil();
+            loopUtil.LoadApps();
+            var UWPTempApplist = loopUtil._AppList;
+            string Inf = string.Empty;
+            for (int i = 0; i < UWPTempApplist.Count; i++)
+                Inf += UWPTempApplist[i].packageFullName;
             //判断是否安装了MinecraftUWP
             if (Inf.Contains("Microsoft.MinecraftUWP"))
             {
