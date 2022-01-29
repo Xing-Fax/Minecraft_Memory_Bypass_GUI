@@ -11,6 +11,7 @@ namespace Minecraft_Memory_Bypass
     {
         internal List<LoopUtil.INET_FIREWALL_APP_CONTAINER> _AppList;
         internal IntPtr _pACs;
+
         public LoopUtil()
         {
             LoadApps();
@@ -24,7 +25,7 @@ namespace Minecraft_Memory_Bypass
             GCHandle handle_pdwCntPublicACs = GCHandle.Alloc(size, GCHandleType.Pinned);
             GCHandle handle_ppACs = GCHandle.Alloc(arrayValue, GCHandleType.Pinned);
             uint retval = NetworkIsolationEnumAppContainers((Int32)NETISO_FLAG.NETISO_FLAG_MAX, out size, out arrayValue);
-            _pACs = arrayValue; //store the pointer so it can be freed when we close the form
+            _pACs = arrayValue;
             var structSize = Marshal.SizeOf(typeof(INET_FIREWALL_APP_CONTAINER));
             for (var i = 0; i < size; i++)
             {
