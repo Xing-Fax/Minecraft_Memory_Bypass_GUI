@@ -63,9 +63,9 @@ namespace Minecraft_Memory_Bypass.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static byte[] Memory_Bypass {
+        internal static byte[] MemoryBypass {
             get {
-                object obj = ResourceManager.GetObject("Memory_Bypass", resourceCulture);
+                object obj = ResourceManager.GetObject("MemoryBypass", resourceCulture);
                 return ((byte[])(obj));
             }
         }

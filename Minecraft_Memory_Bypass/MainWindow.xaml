@@ -218,21 +218,23 @@
         </Grid.RowDefinitions>
         <Rectangle HorizontalAlignment="Left" Height="290" Stroke="Black" VerticalAlignment="Top" Width="295" RadiusX="5" RadiusY="5"/>
         <Grid Margin="10,25,10,230">
-            <Button x:Name="启动" Content="执行命令" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="132.5" FontFamily="Microsoft YaHei UI" FontSize="14" Click="启动_Click"/>
-            <Button x:Name="关闭" Content="程序设置" HorizontalAlignment="Left" Height="35" Margin="142.5,0,0,0" VerticalAlignment="Top" Width="132.5" FontFamily="Microsoft YaHei UI" FontSize="14" Click="关闭_Click"/>
+            <Button x:Name="启动" Content="执行命令" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="132.5" FontFamily="Microsoft YaHei UI" FontSize="14" Click="启动_Click" Clip="M1,6 C1,3.2385763 3.2385763,1 6,1 L126.5,1 C129.26142,1 131.5,3.2385763 131.5,6 L131.5,29 C131.5,31.761424 129.26142,34 126.5,34 L6,34 C3.2385763,34 1,31.761424 1,29 z"/>
+            <Button x:Name="关闭" Content="程序设置" HorizontalAlignment="Left" Height="35" Margin="142.5,0,0,0" VerticalAlignment="Top" Width="132.5" FontFamily="Microsoft YaHei UI" FontSize="14" Click="关闭_Click" Clip="M1,6 C1,3.2385763 3.2385763,1 6,1 L126.5,1 C129.26142,1 131.5,3.2385763 131.5,6 L131.5,29 C131.5,31.761424 129.26142,34 126.5,34 L6,34 C3.2385763,34 1,31.761424 1,29 z"/>
             <Button x:Name="最小化" Content="关闭程序" HorizontalAlignment="Left" Height="35" Margin="275,0,0,0" VerticalAlignment="Top" Width="0" FontFamily="Microsoft YaHei UI" FontSize="14" Click="最小化_Click"/>
+            <Rectangle HorizontalAlignment="Left" Height="35" RadiusY="5.5" RadiusX="5.5" Stroke="#FF707070" VerticalAlignment="Top" Width="132.5" StrokeThickness="1.2"/>
+            <Rectangle HorizontalAlignment="Left" Height="35" RadiusY="5.5" RadiusX="5.5" Stroke="#FF707070" VerticalAlignment="Top" Width="132.5" StrokeThickness="1.2" Margin="142.5,0,0,0"/>
         </Grid>
-        <Canvas Margin="10,85,10,10">
+        <Rectangle RadiusY="5" RadiusX="5" Stroke="#FF707070" Margin="10,85,10,10" StrokeThickness="1.2"/>
+        <Canvas Margin="10,85,10,10" Clip="M1,6 C1,3.2385763 3.2385763,1 6,1 L269,1 C271.76142,1 274,3.2385763 274,6 L274,189 C274,191.76142 271.76142,194 269,194 L6,194 C3.2385763,194 1,191.76142 1,189 z">
             <ScrollViewer x:Name="框" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="275" HorizontalScrollBarVisibility="Auto" Padding="0">
                 <TextBox x:Name="日志" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" MinWidth="258" MinHeight="195" BorderBrush="{x:Null}" IsReadOnly="True"/>
             </ScrollViewer>
-            <Rectangle HorizontalAlignment="Left" Height="195" Stroke="#FF8F8F8F" VerticalAlignment="Top" Width="275"/>
         </Canvas>
         <Canvas Margin="10,60,10,205">
             <Label Content="运行日志：" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="80" FontFamily="Microsoft YaHei UI"/>
             <Label Content="Copyright © xcz  2022" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="140" FontFamily="Microsoft YaHei UI" MouseUp="Label_MouseUp" Canvas.Left="135"/>
         </Canvas>
-        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" RenderTransformOrigin="0.5,0.5" Background="White" d:IsHidden="True">
+        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" RenderTransformOrigin="0.5,0.5" Background="White">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -247,7 +249,7 @@
             <TextBox x:Name="地址" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="0x115CDD6" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,160,0,0" MaxLength="50" MaxLines="1"/>
             <TextBox x:Name="内容" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="0xEB" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,190,0,0" MaxLength="50" MaxLines="1"/>
             <Button x:Name="Save" Content="保存" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="130,260.76,0,0" FontFamily="Microsoft YaHei UI" Click="Save_Click"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="65,45,0,0" FontFamily="Microsoft YaHei UI" Height="50" Width="190"><Run Text="名称：Minecraft Memory Bypass"/><LineBreak/><Run Text="版本："/><Run Text="1.0.0.0"/><LineBreak/><Run Text="版权：Copyright © xcz  2021"/><LineBreak/><Run/><LineBreak/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="65,45,0,0" FontFamily="Microsoft YaHei UI" Height="50" Width="190"><Run Text="名称：Minecraft Memory Bypass"/><LineBreak/><Run Text="版本："/><Run Text="1."/><Run Text="1"/><Run Text=".0.0"/><LineBreak/><Run Text="版权：Copyright © xcz  202"/><Run Text="2"/><LineBreak/><Run/><LineBreak/></TextBlock>
             <Image HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Margin="7.083,45,0,0" Source="256x256.ico"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="关于：" VerticalAlignment="Top" Margin="7.083,24.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="设置：" VerticalAlignment="Top" Margin="7.083,109.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>

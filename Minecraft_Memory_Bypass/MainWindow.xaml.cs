@@ -20,7 +20,7 @@ namespace Minecraft_Memory_Bypass
         /// </summary>
         /// <param name="Name">进程名称</param>
         /// <returns>返回进程PID</returns>
-        [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("MemoryBypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static int GetProcId(string Name);
         /// <summary>
         /// 通过进程名称加进程ID得到进程基地址
@@ -28,14 +28,14 @@ namespace Minecraft_Memory_Bypass
         /// <param name="nID">进程PID</param>
         /// <param name="Name">进程名称</param>
         /// <returns>返回基地址(十进制)</returns>
-        [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("MemoryBypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static long GetModuleBaseAddress(long nID, string Name);
         /// <summary>
         /// 通过进程ID得到窗口句柄
         /// </summary>
         /// <param name="nID">进程PID</param>
         /// <returns>返回句柄(十进制)</returns>
-        [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("MemoryBypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static long GetProcessHandle(int nID);
         /// <summary>
         /// 写入内存
@@ -45,7 +45,7 @@ namespace Minecraft_Memory_Bypass
         /// <param name="Buffer">写入内容</param>
         /// <param name="nSize">缓冲区大小</param>
         /// <returns>是否写入成功</returns>
-        [DllImport("Memory_Bypass.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("MemoryBypass.dll", CallingConvention = CallingConvention.Winapi)]
         public extern static bool WriteMemory(long Handle, long Address, byte[] Buffer,int nSize);
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Minecraft_Memory_Bypass
             //隐藏设置界面
             设置.Visibility = Visibility.Collapsed;
             //打印日志
-            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.0.0.0";
+            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.1.0.0";
             //获取计算机UWP程序安装列表
             LoopUtil loopUtil = new LoopUtil();
             loopUtil.LoadApps();

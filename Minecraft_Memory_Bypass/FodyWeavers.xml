@@ -4,7 +4,7 @@
   xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
   <Costura>
     <Unmanaged64Assemblies>
-      Memory_Bypass
+      MemoryBypass
     </Unmanaged64Assemblies>
   </Costura>
 </Weavers>
