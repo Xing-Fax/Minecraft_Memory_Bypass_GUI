@@ -70,5 +70,29 @@ namespace Minecraft_Memory_Bypass.Properties {
                 this["Quit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AllVersions {
+            get {
+                return ((string)(this["AllVersions"]));
+            }
+            set {
+                this["AllVersions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int AllVersionsID {
+            get {
+                return ((int)(this["AllVersionsID"]));
+            }
+            set {
+                this["AllVersionsID"] = value;
+            }
+        }
     }
 }

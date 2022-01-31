@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -60,6 +63,10 @@ namespace Minecraft_Memory_Bypass
         /// 写入内容
         /// </summary>
         private static int Write_Content;
+        /// <summary>
+        /// 存储游戏版本信息
+        /// </summary>
+        ArrayList Sets = new ArrayList();
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
@@ -185,7 +192,7 @@ namespace Minecraft_Memory_Bypass
             //隐藏设置界面
             设置.Visibility = Visibility.Collapsed;
             //打印日志
-            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.1.0.0";
+            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.2.0.0";
             //获取计算机UWP程序安装列表
             LoopUtil loopUtil = new LoopUtil();
             loopUtil.LoadApps();
@@ -211,7 +218,7 @@ namespace Minecraft_Memory_Bypass
             }
         }
 
-        void Start_in_the_background(object sender, DoWorkEventArgs e)
+        void StartInTheBackground(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -253,7 +260,7 @@ namespace Minecraft_Memory_Bypass
             //后台执行
             using (BackgroundWorker bw = new BackgroundWorker())
             {
-                bw.DoWork += new DoWorkEventHandler(Start_in_the_background);
+                bw.DoWork += new DoWorkEventHandler(StartInTheBackground);
                 bw.RunWorkerAsync();
             }
         }
@@ -274,6 +281,38 @@ namespace Minecraft_Memory_Bypass
                 Properties.Settings.Default.Write_Content = 内容.Text;
                 Properties.Settings.Default.Quit = (bool)退出.IsChecked;
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            string Path = System.IO.Path.GetTempPath() + "Set";
+            Operate.HttpDownloadFile("https://xingchuanzhen.github.io/Minecraft_Memory_Bypass_GUI/ConfigurationFile",Path );
+            string lrc = "", msg;
+            using (StreamReader reader = new StreamReader(Path, Encoding.Default))
+            {
+                while ((msg = reader.ReadLine()) != null) { lrc += msg + "\n"; }//!=  不等于   
+            }
+            string[] temp = lrc.Split('\n');//拆分字符串
+            Sets.Clear();
+            VersionList.Items.Clear();
+            VersionList.Items.Add("自定义");
+            VersionList.SelectedIndex = 0;
+            for (int i = 0; i < temp.Length; i++)
+                if (temp[i] != "")
+                    Sets.Add(temp[i]);
+            for(int i = 0; i < Sets .Count;i++)
+                VersionList.Items.Add(Operate.Substring(Sets[i].ToString(), "Version=\"", "\""));
+            File.Delete(Path);
+        }
+
+        private void VersionList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(Sets.Count > 1 && VersionList.SelectedIndex != 0)
+            {
+                int Num = VersionList.SelectedIndex - 1;
+                地址.Text = Operate.Substring(Sets[Num].ToString(), "Address=\"", "\"");
+                内容.Text = Operate.Substring(Sets[Num].ToString(), "Content=\"", "\"");
             }
         }
     }
