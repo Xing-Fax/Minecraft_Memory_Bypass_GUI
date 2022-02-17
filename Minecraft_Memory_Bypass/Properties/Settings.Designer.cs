@@ -94,5 +94,17 @@ namespace Minecraft_Memory_Bypass.Properties {
                 this["AllVersionsID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SelectID {
+            get {
+                return ((int)(this["SelectID"]));
+            }
+            set {
+                this["SelectID"] = value;
+            }
+        }
     }
 }

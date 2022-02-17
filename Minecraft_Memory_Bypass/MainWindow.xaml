@@ -234,7 +234,7 @@
             <Label Content="运行日志：" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="80" FontFamily="Microsoft YaHei UI"/>
             <Label Content="Copyright © xcz  2022" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="140" FontFamily="Microsoft YaHei UI" MouseUp="Label_MouseUp" Canvas.Left="135"/>
         </Canvas>
-        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" RenderTransformOrigin="0.5,0.5" Background="White" d:IsHidden="True">
+        <Grid x:Name="设置" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="295" RenderTransformOrigin="0.5,0.5" Background="White">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -249,14 +249,14 @@
             <TextBox x:Name="地址" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="0x115CDD6" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,160,0,0" MaxLength="50" MaxLines="1"/>
             <TextBox x:Name="内容" HorizontalAlignment="Left" Height="18.694" TextWrapping="Wrap" Text="0xEB" VerticalAlignment="Top" Width="215" FontFamily="Microsoft YaHei UI" Margin="70,190,0,0" MaxLength="50" MaxLines="1"/>
             <Button x:Name="Save" Content="保存" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="130,260.76,0,0" FontFamily="Microsoft YaHei UI" Click="Save_Click"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="65,45,0,0" FontFamily="Microsoft YaHei UI" Height="50" Width="190"><Run Text="名称：Minecraft Memory Bypass"/><LineBreak/><Run Text="版本："/><Run Text="1."/><Run Text="2"/><Run Text=".0.0"/><LineBreak/><Run Text="版权：Copyright © xcz  202"/><Run Text="2"/><LineBreak/><Run/><LineBreak/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="65,45,0,0" FontFamily="Microsoft YaHei UI" Height="50" Width="190"><Run Text="名称：Minecraft Memory Bypass"/><LineBreak/><Run Text="版本："/><Run Text="1."/><Run Text="4"/><Run Text=".0.0"/><LineBreak/><Run Text="版权：Copyright © xcz  202"/><Run Text="2"/><LineBreak/><Run/><LineBreak/></TextBlock>
             <Image HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Margin="7.083,45,0,0" Source="256x256.ico"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="关于：" VerticalAlignment="Top" Margin="7.083,24.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="设置：" VerticalAlignment="Top" Margin="7.083,109.76,0,0" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
             <Button x:Name="Cancel" Content="取消" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="210,260.76,0,0" FontFamily="Microsoft YaHei UI" Click="Cancel_Click"/>
             <Label x:Name="提示" Content="输入不能为空！" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,235,0,0" Width="115" HorizontalContentAlignment="Right" FontFamily="Microsoft YaHei UI" Background="{x:Null}" Foreground="Red" Height="25.76"/>
             <CheckBox x:Name="退出" Content="自动退出" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,264.901,0,0" FontFamily="Microsoft YaHei UI"/>
-            <ComboBox x:Name="VersionList" HorizontalAlignment="Left" Height="20" Margin="70,220,0,0" VerticalAlignment="Top" Width="155" FontFamily="Microsoft YaHei UI" SelectedIndex="0" SelectionChanged="VersionList_SelectionChanged">
+            <ComboBox x:Name="VersionList" HorizontalAlignment="Left" Height="20" Margin="70,220,0,0" VerticalAlignment="Top" Width="155" FontFamily="Microsoft YaHei UI" SelectionChanged="VersionList_SelectionChanged">
                 <ComboBox.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>

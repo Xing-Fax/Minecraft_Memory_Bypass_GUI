@@ -107,9 +107,12 @@ namespace Minecraft_Memory_Bypass
 
         private void 关闭_Click(object sender, RoutedEventArgs e)
         {
-            名称.Text = Properties.Settings.Default.Program_Name;
-            地址.Text = Properties.Settings.Default.Offset_Address;
-            内容.Text = Properties.Settings.Default.Write_Content;
+            if (VersionList.SelectedIndex == 0)
+            {
+                名称.Text = Properties.Settings.Default.Program_Name;
+                地址.Text = Properties.Settings.Default.Offset_Address;
+                内容.Text = Properties.Settings.Default.Write_Content;
+            }
             退出.IsChecked = Properties.Settings.Default.Quit;
             提示.Visibility = Visibility.Collapsed;
             BeginStoryboard((Storyboard)FindResource("设置开启"));
@@ -192,7 +195,7 @@ namespace Minecraft_Memory_Bypass
             //隐藏设置界面
             设置.Visibility = Visibility.Collapsed;
             //打印日志
-            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.2.0.0";
+            日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: " + "程序版本：1.4.0.0";
             //获取计算机UWP程序安装列表
             LoopUtil loopUtil = new LoopUtil();
             loopUtil.LoadApps();
@@ -205,6 +208,16 @@ namespace Minecraft_Memory_Bypass
             {
                 //得到游戏版本
                 Assignment("游戏版本：" + Operate.Substring(Inf, "Microsoft.MinecraftUWP_", "_"));
+                if (Properties.Settings.Default.AllVersions != "")
+                {
+                    FillData(Properties.Settings.Default.AllVersions);
+                    VersionList.SelectedIndex = Properties.Settings.Default.SelectID;
+                }
+                else
+                {
+                    VersionList.SelectedIndex = 0;
+                }
+
                 if (Implement_YES)
                     启动_Click(null,null);
             }
@@ -274,46 +287,77 @@ namespace Minecraft_Memory_Bypass
             }
             else
             {
-                //写入设置
                 BeginStoryboard((Storyboard)FindResource("设置关闭"));
-                Properties.Settings.Default.Program_Name = 名称.Text;
-                Properties.Settings.Default.Offset_Address = 地址.Text;
-                Properties.Settings.Default.Write_Content = 内容.Text;
                 Properties.Settings.Default.Quit = (bool)退出.IsChecked;
+                if (VersionList.SelectedIndex == 0)
+                {
+                    Properties.Settings.Default.Program_Name = 名称.Text;
+                    Properties.Settings.Default.Offset_Address = 地址.Text;
+                    Properties.Settings.Default.Write_Content = 内容.Text;
+                }
                 Properties.Settings.Default.Save();
             }
         }
 
-        private void refresh_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 格式化数据
+        /// </summary>
+        /// <param name="Path">文件路径</param>
+        private string Format(string Path)
         {
-            string Path = System.IO.Path.GetTempPath() + "Set";
-            Operate.HttpDownloadFile("https://xingchuanzhen.github.io/Minecraft_Memory_Bypass_GUI/ConfigurationFile",Path );
+            //开始格式化数据
             string lrc = "", msg;
             using (StreamReader reader = new StreamReader(Path, Encoding.Default))
             {
                 while ((msg = reader.ReadLine()) != null) { lrc += msg + "\n"; }//!=  不等于   
             }
-            string[] temp = lrc.Split('\n');//拆分字符串
+            return lrc;
+        }
+
+        private void FillData(string str)
+        {
+            string[] temp = str.Split('\n');//拆分字符串
+            //剔除空数据
+            for (int i = 0; i < temp.Length; i++)
+                if (temp[i] != "")
+                    Sets.Add(temp[i]);
+            //将版本数据添加到列表中
+            for (int i = 0; i < Sets.Count; i++)
+                VersionList.Items.Add(Operate.Substring(Sets[i].ToString(), "Version=\"", "\""));
+        }
+
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            //设置文件下载目录，用户临时文件夹
+            string Path = System.IO.Path.GetTempPath() + "Set";
+            //开始下载文件
+            Operate.HttpDownloadFile("https://xingchuanzhen.github.io/Minecraft_Memory_Bypass_GUI/ConfigurationFile",Path );
+            //清除列表
             Sets.Clear();
             VersionList.Items.Clear();
             VersionList.Items.Add("自定义");
             VersionList.SelectedIndex = 0;
-            for (int i = 0; i < temp.Length; i++)
-                if (temp[i] != "")
-                    Sets.Add(temp[i]);
-            for(int i = 0; i < Sets .Count;i++)
-                VersionList.Items.Add(Operate.Substring(Sets[i].ToString(), "Version=\"", "\""));
+            string lrc = Format(Path);
+            FillData(lrc);
+            //将数据保存到本地
+            Properties.Settings.Default.AllVersions = lrc;
+            Properties.Settings.Default.Save();
+            //删除临时文件
             File.Delete(Path);
         }
 
         private void VersionList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if(Sets.Count > 1 && VersionList.SelectedIndex != 0)
+            if (Sets.Count > 1 && VersionList.SelectedIndex != 0)
             {
                 int Num = VersionList.SelectedIndex - 1;
                 地址.Text = Operate.Substring(Sets[Num].ToString(), "Address=\"", "\"");
                 内容.Text = Operate.Substring(Sets[Num].ToString(), "Content=\"", "\"");
+                Properties.Settings.Default.Offset_Address = 地址.Text;
+                Properties.Settings.Default.Write_Content = 内容.Text;
             }
+            Properties.Settings.Default.SelectID = VersionList.SelectedIndex;
+            Properties.Settings.Default.Save();
         }
     }
 }
