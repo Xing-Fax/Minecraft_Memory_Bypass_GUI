@@ -1,0 +1,4 @@
+# Minecraft_Memory_Bypass_GUI
+绕过Minecraft for Windows试玩验证系统
+
+程序从此文件中获取最新版本和偏移量
