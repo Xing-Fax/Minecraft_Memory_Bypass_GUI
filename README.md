@@ -40,6 +40,7 @@ www.Minecraft.net
 | 1.18.3104.0 | 0x16FB7C6 | 0xEB     |
 | 1.19.5.0    | 0xD04F66  | 0xEB     |
 | 1.19.202.0  | 0xD04AE6  | 0xEB     |
+| 1.19.1003.0 | 0xCC5DD6  | 0xEB     |
 
 ![Snipaste_2021-07-03_13-07-08](Snipaste_2022-01-23_14-06-39.png)
 
